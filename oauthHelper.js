@@ -29,6 +29,5 @@ function generateOAuthHeaders(url, method, data) {
 }
 
 module.exports = {
-  generateOAuthSignature,
   generateOAuthHeaders,
 };

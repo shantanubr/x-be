@@ -11,6 +11,14 @@ const PORT = process.env.PORT || 3001;
 app.use(express.json());
 app.use(cors());
 
+app.get('/', (req, res) => {
+  res.send('Hey this is my API running 🥳')
+})
+
+app.get('/about', (req, res) => {
+  res.send('This is my about route..... ')
+})
+
 app.post('/twitter-api/tweets', async (req, res) => {
     
     const twitterApiUrl = 'https://api.twitter.com/2/tweets';
@@ -32,7 +40,7 @@ app.post('/twitter-api/tweets', async (req, res) => {
         const data = await response.json();
 
         res.status(response.status).json(data);
-        
+
     } catch (error) {
         console.error('Error:', error);
         res.status(500).json({ error: 'Internal Server Error' });
