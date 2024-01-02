@@ -46,7 +46,7 @@ app.post('/twitter-api/tweets', async (req, res) => {
           res.status(500).json({ error: 'Internal Server Error' });
       }
     } else {
-      res.status(411).json({ error: req });
+      res.status(411).json({ error: 'LOL hogya na!' });
     }
 });
 
