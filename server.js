@@ -20,30 +20,33 @@ app.get('/about', (req, res) => {
 })
 
 app.post('/twitter-api/tweets', async (req, res) => {
-    
-    const twitterApiUrl = 'https://api.twitter.com/2/tweets';
+    if(process.env.SECRET_CODE_HIGHEST_SECURITY === req.body.secretCode) {
+      const twitterApiUrl = 'https://api.twitter.com/2/tweets';
 
-    const method = 'POST';
+      const method = 'POST';
 
-    const headers = generateOAuthHeaders(twitterApiUrl, 'POST');
+      const headers = generateOAuthHeaders(twitterApiUrl, 'POST');
 
-    try {
-        const response = await fetch(twitterApiUrl, {
-        method: method,
-        headers: {
-            'Content-Type': 'application/json',
-            ...headers
-        },
-        body: JSON.stringify({ text: req.body.text }),
-        });
+      try {
+          const response = await fetch(twitterApiUrl, {
+          method: method,
+          headers: {
+              'Content-Type': 'application/json',
+              ...headers
+          },
+          body: JSON.stringify({ text: req.body.text }),
+          });
 
-        const data = await response.json();
+          const data = await response.json();
 
-        res.status(response.status).json(data);
+          res.status(response.status).json(data);
 
-    } catch (error) {
-        console.error('Error:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
+      } catch (error) {
+          console.error('Error:', error);
+          res.status(500).json({ error: 'Internal Server Error' });
+      }
+    } else {
+      res.status(411).json({ error: 'LOL hogya na!' });
     }
 });
 
